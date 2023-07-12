@@ -14,8 +14,36 @@ A program where a user can control a Finch Robot through a command line interfac
   <li> <b> D </b> - Displays the commands currently in the tracelist  <b> D </b></li>
   <li> <b> P </b> - Estimates finch position, distance and displacement <b> P</b></li>
   <li> <b> H </b> - Display all available commands for the Finch to execute i.e. <b> H</b></li>
-
-
-
 </ul>
 
+<h2> Adding a New Command </h2>
+<p>The program comes with its own system of lexing and parsing the user input and matching the commands. See the CommandsArray.Java file. To create a new command, 3 values must be specified - the command character (the letter the user must type to activate the command), the parameter types (an array of strings such as {"Int","Int"} to specify the command takes two integer parameters), and the command description (shown to the user when they type the H command.) The following is the definition for the F command. </p>
+
+```
+// F Command
+		CurrentCommandChar = 'F';
+		CurrentParameterTypes = new String[]  {"Int", "Int"};
+		CurrentCommandDesc = "Forward - For x seconds, moves finch forward at Y speed";
+		CurrentCommand = new Command(CurrentCommandChar, CurrentParameterTypes, CurrentCommandDesc);
+		RecognisedCommandsArray.add(CurrentCommand);
+```
+
+<p> To define the functionality of the command, simply add a function in the ExecuteCommand.Java file, and add the function to the case statement for the appropriate letter. The following shows how the first few commands are implemented to allow execution of the Finch in the ExecuteCommand.Java file. </p>
+
+```
+		// Switch case observes which command should be executed
+		switch (CommandChar)
+		{
+			case 'F':
+				ExecuteF();
+				break;
+				
+			case 'B':
+				ExecuteB();
+				break;
+				
+			case 'R':
+				ExecuteR();
+				break;
+    ...
+```
