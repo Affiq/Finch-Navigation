@@ -17,13 +17,24 @@ A program where a user can control a Finch Robot through a command line interfac
 </ul>
 
 <h2> Adding a New Command </h2>
-<p>The program comes with its own system of lexing and parsing the user input and matching the commands. See the CommandsArray.Java file. To create a new command, 3 values must be specified - the command character (the letter the user must type to activate the command), the parameter types (an array of strings such as {"Int","Int"} to specify the command takes two integer parameters), and the command description (shown to the user when they type the H command.) The following is the definition for the F command. </p>
+<p>The program comes with its own system of lexing and parsing the user input and matching the commands. See the CommandsArray.Java file. To create a new command, 3 values must be specified - the command character (the letter the user must type to activate the command), the parameter types (an array of strings such as {"Int","Int"} to specify the command takes two integer parameters), and the command description (shown to the user when they type the H command.) By defining the parameter types, the program will know how to validate the user's input for a new command. The following is the definition for the F command. </p>
 
 ```
 // F Command
 		CurrentCommandChar = 'F';
 		CurrentParameterTypes = new String[]  {"Int", "Int"};
 		CurrentCommandDesc = "Forward - For x seconds, moves finch forward at Y speed";
+		CurrentCommand = new Command(CurrentCommandChar, CurrentParameterTypes, CurrentCommandDesc);
+		RecognisedCommandsArray.add(CurrentCommand);
+```
+
+<p> For instance, if we wanted to create a command that would let a user type in a string and it would move x amount of seconds for the given length of the string, our command will be defined as: </p>
+
+```
+// N Command
+		CurrentCommandChar = 'N';
+		CurrentParameterTypes = new String[]  {"String"};
+		CurrentCommandDesc = "Move by Name - Moves forward for x amount of seconds where X is the length of your name";
 		CurrentCommand = new Command(CurrentCommandChar, CurrentParameterTypes, CurrentCommandDesc);
 		RecognisedCommandsArray.add(CurrentCommand);
 ```
